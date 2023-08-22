@@ -8,6 +8,11 @@ import { JsonRpcProvider } from '@ethersproject/providers';
 import { Contract, ContractInterface } from '@ethersproject/contracts';
 import { Close } from './Icons/Close';
 import { CircleCheckmark } from './Icons/CircleCheckmark';
+import { Container, Grid } from '@mui/material';
+import MigratePosition from "./Migrator/MigratePosition";
+import MigrateFrom from "./Migrator/MigrateFrom";
+import MigrateTo from "./Migrator/MigrateTo";
+import {getRows, PositionRow} from "./helpers/positions";
 
 interface AppProps {
   rpc?: RPC,
@@ -55,6 +60,31 @@ function useAsyncEffect(fn: () => Promise<void>, deps: any[] = []) {
 
 export function App<N extends Network>({rpc, web3, account, networkConfig}: AppPropsExt<N>) {
   let { cTokenNames } = networkConfig;
+  const [rows, setRows] = useState<PositionRow[]>([]);
+  const [selected, setSelected] = useState<PositionRow | null>(null);
+  const [provider, setProvider] = useState<string>('compound');
+  const [isPositionSelected, setIsPositionSelected] = useState<boolean>(false);
+  const [isFormFormFilled, setIsFormFormFilled] = useState<boolean>(false);
+  const loading = false;
+  const positions: PositionRow[] = [];
+
+  const onNext = () => setIsPositionSelected(true);
+
+  const onFromFormFilled = () => {
+    setIsFormFormFilled(true);
+  };
+
+  const onBack = () => {
+    setSelected(null);
+    setIsPositionSelected(false);
+  };
+
+  useEffect(() => {
+    (() => {
+      if (loading) return;
+      setRows(getRows(positions));
+    })();
+  }, [loading, account, positions]);
 
   const signer = useMemo(() => {
     return web3.getSigner().connectUnchecked();
@@ -92,42 +122,54 @@ export function App<N extends Network>({rpc, web3, account, networkConfig}: AppP
             </button> :
             <button className="button button--large button--supply" onClick={enableExt}>Enable</button> }
         </div>
-        <div className="home__content">
-          <div className="home__assets">
-            <div className="panel panel--assets">
-              <div className="panel__header-row">
-                <label className="L1 label text-color--1">My Extension Dashboard</label>
-              </div>
-              <div className="panel__header-row">
-                <label className="label text-color--1">
-                  A dashboard to control how a user utilizes your extension.
-                </label>
-              </div>
-              { null }
-              <div className="panel__header-row">
-                <label className="L1 label text-color--2">Debug Information</label>
-                <label className="label text-color--2">
-                  network={ showNetwork(networkConfig.network) }<br/>
-                  account={ account }<br/>
-                </label>
-              </div>
-            </div>
-          </div>
-          <div className="home__sidebar">
-            <div className="position-card__summary">
-              <div className="panel position-card L3">
-                <div className="panel__header-row">
-                  <label className="L1 label text-color--1">Summary</label>
-                </div>
-                <div className="panel__header-row">
-                  <p className="text-color--1">
-                    Further information about your extension.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        <Container
+          sx={{
+            mt: { xs: '0', sm: '4rem' },
+            mb: { xs: '7rem', sm: '0' },
+            pl: { xs: '0.25rem' },
+            pr: { xs: '0.25rem' },
+            minHeight: '75vh',
+          }}
+        >
+          <Grid
+            container
+            wrap="wrap"
+            alignItems="flex-start"
+            justifyContent="center"
+          >
+            {!isPositionSelected ? (
+              <Grid item xs={6}>
+                <MigratePosition
+                  provider={provider}
+                  loading={loading}
+                  rows={rows}
+                  selected={selected}
+                  setSelected={setSelected}
+                  onNext={onNext}
+                />
+              </Grid>
+            ) : (
+              <>
+                <Grid item xs={4}>
+                  <MigrateFrom
+                    onBack={onBack}
+                    position={selected!}
+                    onNext={onFromFormFilled}
+                    isFormFormFilled={isFormFormFilled}
+                  />
+                </Grid>
+                {isFormFormFilled && (
+                  <Grid item xs={4} ml={{ xs: 0, md: 3 }} mt={{ xs: 3, md: 0 }}>
+                    <MigrateTo
+                      onNext={() => console.log('implement me')}
+                      onBack={() => setIsFormFormFilled(false)}
+                    />
+                  </Grid>
+                )}
+              </>
+            )}
+          </Grid>
+        </Container>
       </div>
     </div>
   );
