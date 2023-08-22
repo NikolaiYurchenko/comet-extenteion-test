@@ -17,8 +17,8 @@ import React from 'react';
 import { chainName } from '../../helpers/chains';
 import { PositionRow } from '../../helpers/positions';
 import { formatValue } from '../../helpers/values';
-import { useAuth } from '../../store/auth.store';
-import { NetworkIcon, ProviderIcon } from '../Shared/Icons';
+import NetworkIcon from "../Shared/Icons/NetworkIcon";
+import ProviderIcon from "../Shared/Icons/ProviderIcon";
 
 type MigratePositionTableProps = {
   loading: boolean;
@@ -27,6 +27,7 @@ type MigratePositionTableProps = {
   selected: PositionRow | null;
   marketLink: string;
   onNext: () => void;
+  account: string;
 };
 
 function MigratePositionTable({
@@ -36,10 +37,9 @@ function MigratePositionTable({
   selected,
   marketLink,
   onNext,
+  account,
 }: MigratePositionTableProps) {
   const { palette } = useTheme();
-  const account = useAuth((state) => state.address);
-  const login = useAuth((state) => state.login);
 
   const numberOfColumns = 4;
 
@@ -53,7 +53,9 @@ function MigratePositionTable({
           <Button
             variant="secondary"
             size="medium"
-            onClick={() => login()}
+            onClick={() => {
+
+            }}
             sx={{
               mt: 3,
             }}

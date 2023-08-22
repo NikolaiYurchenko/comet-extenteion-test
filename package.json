@@ -15,6 +15,8 @@
   },
   "dependencies": {
     "@compound-finance/comet-extension": "^0.0.5",
+    "@emotion/react": "^11.10.0",
+    "@emotion/styled": "^11.10.0",
     "@esbuild-plugins/node-globals-polyfill": "^0.1.1",
     "@ethersproject/abi": "^5.6.2",
     "@ethersproject/bignumber": "^5.4.2",
@@ -22,6 +24,8 @@
     "@ethersproject/experimental": "^5.5.0",
     "@ethersproject/providers": "^5.7.0",
     "@ethersproject/units": "^5.4.0",
+    "@mui/icons-material": "^5.11.9",
+    "@mui/material": "^5.11.10",
     "@web3-react/core": "8.0.35-beta.0",
     "@web3-react/metamask": "8.0.28-beta.0",
     "@web3-react/network": "8.0.27-beta.0",
@@ -30,9 +34,11 @@
     "comet": "https://github.com/compound-finance/comet.git#c54ccc62e06186bdf237048ac7c9f3ce34d813b4",
     "compound-config": "https://github.com/compound-finance/compound-config.git#0815f079ebe6c7421361b3334f7b8eaab50722b0",
     "compound-styles": "https://github.com/compound-finance/compound-styles.git#fc29b8a832c698920f2fcf7a06d978c4580a48e1",
+    "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "rollup-plugin-polyfill-node": "^0.10.2"
+    "rollup-plugin-polyfill-node": "^0.10.2",
+    "@x-fuji/sdk": "^0.1.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.2",

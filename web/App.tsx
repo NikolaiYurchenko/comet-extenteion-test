@@ -9,10 +9,11 @@ import { Contract, ContractInterface } from '@ethersproject/contracts';
 import { Close } from './Icons/Close';
 import { CircleCheckmark } from './Icons/CircleCheckmark';
 import { Container, Grid } from '@mui/material';
-import MigratePosition from "./Migrator/MigratePosition";
-import MigrateFrom from "./Migrator/MigrateFrom";
-import MigrateTo from "./Migrator/MigrateTo";
+import MigratePosition from "./components/Migrator/MigratePosition";
+import MigrateFrom from "./components/Migrator/MigrateFrom";
+import MigrateTo from "./components/Migrator/MigrateTo";
 import {getRows, PositionRow} from "./helpers/positions";
+import {Position} from "./models/Position";
 
 interface AppProps {
   rpc?: RPC,
@@ -57,7 +58,6 @@ function useAsyncEffect(fn: () => Promise<void>, deps: any[] = []) {
 }
 
 
-
 export function App<N extends Network>({rpc, web3, account, networkConfig}: AppPropsExt<N>) {
   let { cTokenNames } = networkConfig;
   const [rows, setRows] = useState<PositionRow[]>([]);
@@ -66,7 +66,7 @@ export function App<N extends Network>({rpc, web3, account, networkConfig}: AppP
   const [isPositionSelected, setIsPositionSelected] = useState<boolean>(false);
   const [isFormFormFilled, setIsFormFormFilled] = useState<boolean>(false);
   const loading = false;
-  const positions: PositionRow[] = [];
+  const positions: Position[] = [];
 
   const onNext = () => setIsPositionSelected(true);
 
@@ -146,26 +146,27 @@ export function App<N extends Network>({rpc, web3, account, networkConfig}: AppP
                   selected={selected}
                   setSelected={setSelected}
                   onNext={onNext}
+                  account={account}
                 />
               </Grid>
             ) : (
               <>
-                <Grid item xs={4}>
-                  <MigrateFrom
-                    onBack={onBack}
-                    position={selected!}
-                    onNext={onFromFormFilled}
-                    isFormFormFilled={isFormFormFilled}
-                  />
-                </Grid>
-                {isFormFormFilled && (
-                  <Grid item xs={4} ml={{ xs: 0, md: 3 }} mt={{ xs: 3, md: 0 }}>
-                    <MigrateTo
-                      onNext={() => console.log('implement me')}
-                      onBack={() => setIsFormFormFilled(false)}
-                    />
-                  </Grid>
-                )}
+                {/*<Grid item xs={4}>*/}
+                {/*  <MigrateFrom*/}
+                {/*    onBack={onBack}*/}
+                {/*    position={selected!}*/}
+                {/*    onNext={onFromFormFilled}*/}
+                {/*    isFormFormFilled={isFormFormFilled}*/}
+                {/*  />*/}
+                {/*</Grid>*/}
+                {/*{isFormFormFilled && (*/}
+                {/*  <Grid item xs={4} ml={{ xs: 0, md: 3 }} mt={{ xs: 3, md: 0 }}>*/}
+                {/*    <MigrateTo*/}
+                {/*      onNext={() => console.log('implement me')}*/}
+                {/*      onBack={() => setIsFormFormFilled(false)}*/}
+                {/*    />*/}
+                {/*  </Grid>*/}
+                {/*)}*/}
               </>
             )}
           </Grid>

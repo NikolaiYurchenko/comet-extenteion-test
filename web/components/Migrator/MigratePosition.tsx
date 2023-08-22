@@ -19,6 +19,7 @@ type MigratePositionProps = {
   setSelected: (row: PositionRow) => void;
   onNext: () => void;
   provider: string;
+  account: string;
 };
 
 function MigratePosition({
@@ -28,6 +29,7 @@ function MigratePosition({
   setSelected,
   onNext,
   provider,
+  account,
 }: MigratePositionProps) {
   const { palette } = useTheme();
   return (
@@ -55,6 +57,7 @@ function MigratePosition({
             onClick={setSelected}
             selected={selected}
             marketLink={'https://app.compound.finance/'}
+            account={account}
           />
         </CardContent>
       </Card>

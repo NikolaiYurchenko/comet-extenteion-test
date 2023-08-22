@@ -17,7 +17,7 @@ import CurrencyCard from '../Shared/Operation/FormAssetBox/CurrencyCard';
 import WarningInfo from '../Shared/WarningInfo';
 import InfoWithIcon from './InfoWithIcon';
 import PositionHealth from './PositionHealth';
-import {VaultType} from "../helpers/positions";
+import {VaultType} from "@x-fuji/sdk";
 
 type MigrateFromProps = {
   onBack: () => void;
