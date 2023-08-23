@@ -114,7 +114,6 @@ export function App<N extends Network>({rpc, web3, account, networkConfig}: AppP
     <div className="page home">
       <div className="container">
         <div className="masthead L1">
-          <h1 className="L0 heading heading--emphasized">My Comet Extension</h1>
           { accountState.extEnabled ?
             <button className="button button--large button--supply" onClick={disableExt}>
               <CircleCheckmark />
