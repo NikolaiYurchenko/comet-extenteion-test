@@ -5,7 +5,6 @@ import {
   CHAIN_NAME,
   ChainId,
   ChainType,
-  NATIVE,
 } from '@x-fuji/sdk';
 
 const chainsWithType = (type: ChainType) =>
@@ -14,18 +13,15 @@ const chainsWithType = (type: ChainType) =>
 export const chains: Chain[] = chainsWithType(ChainType.MAINNET);
 export const testChains: Chain[] = chainsWithType(ChainType.TESTNET);
 
-// if (process.env.NEXT_PUBLIC_APP_ENV === "development") {
-//   chains.push(...testChains)
-// }
 
 const rpcs = {
-  [ChainId.ETHEREUM]: `https://mainnet.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_KEY}`,
+  [ChainId.ETHEREUM]: `https://mainnet.infura.io/v3/${import.meta.env.NEXT_PUBLIC_INFURA_KEY}`,
   [ChainId.MATIC]: 'https://matic-mainnet.chainstacklabs.com',
   [ChainId.FANTOM]: 'https://rpcapi.fantom.network',
   [ChainId.ARBITRUM]: 'https://arb1.arbitrum.io/rpc',
   [ChainId.OPTIMISM]: 'https://optimism-mainnet.public.blastapi.io/',
   [ChainId.GNOSIS]: 'https://rpc.gnosischain.com/',
-  [ChainId.GOERLI]: `https://goerli.infura.io/v3/${process.env.NEXT_PUBLIC_INFURA_KEY}`,
+  [ChainId.GOERLI]: `https://goerli.infura.io/v3/${import.meta.env.NEXT_PUBLIC_INFURA_KEY}`,
   [ChainId.MATIC_MUMBAI]: 'https://matic-mainnet.chainstacklabs.com',
   [ChainId.OPTIMISM_GOERLI]: 'https://goerli.optimism.io/',
 };

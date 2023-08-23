@@ -3,10 +3,11 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfill';
 import nodePolyfills from "rollup-plugin-polyfill-node";
+import * as path from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(),],
   // Node.js global to browser globalThis
   define: {
     global: "globalThis",
@@ -34,6 +35,18 @@ export default defineConfig({
   resolve: {
     alias: {
       '/fonts': resolve(__dirname, 'node_modules/compound-styles/public/fonts'),
+        process: "process",
+        buffer: "buffer",
+        crypto: "crypto-browserify",
+        stream: "stream-browserify",
+        assert: "assert-browserify",
+        http: "stream-http",
+        https: "https-browserify",
+        os: "os-browserify",
+        url: "url",
+        util: "util/",
+        zlib: "browserify-zlib",
+        '@': path.resolve(__dirname, './web'),
     },
   },
   optimizeDeps: {
