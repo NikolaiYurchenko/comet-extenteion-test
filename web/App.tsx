@@ -8,12 +8,13 @@ import { JsonRpcProvider } from '@ethersproject/providers';
 import { Contract, ContractInterface } from '@ethersproject/contracts';
 import { Close } from './Icons/Close';
 import { CircleCheckmark } from './Icons/CircleCheckmark';
-import { Container, Grid } from '@mui/material';
+import {Button, Container, Grid} from '@mui/material';
 import MigratePosition from "./components/Migrator/MigratePosition";
 import MigrateFrom from "./components/Migrator/MigrateFrom";
 import MigrateTo from "./components/Migrator/MigrateTo";
 import {getRows, PositionRow} from "./helpers/positions";
 import {Position} from "./models/Position";
+import Header from "./components/Header/Header";
 
 interface AppProps {
   rpc?: RPC,
@@ -99,79 +100,66 @@ export function App<N extends Network>({rpc, web3, account, networkConfig}: AppP
   const comet = useMemo(() => new Contract(networkConfig.rootsV3.comet, Comet, signer), [signer]);
 
   async function enableExt() {
-    console.log("enabling ext");
     await comet.allow(ext.address, true);
-    console.log("enabled ext");
   }
 
   async function disableExt() {
-    console.log("disabling ext");
     await comet.allow(ext.address, false);
-    console.log("disabling ext");
   }
 
   return (
-    <div className="page home">
-      <div className="container">
-        <div className="masthead L1">
-          { accountState.extEnabled ?
-            <button className="button button--large button--supply" onClick={disableExt}>
-              <CircleCheckmark />
-              <label>Enabled</label>
-            </button> :
-            <button className="button button--large button--supply" onClick={enableExt}>Enable</button> }
-        </div>
-        <Container
-          sx={{
-            mt: { xs: '0', sm: '4rem' },
-            mb: { xs: '7rem', sm: '0' },
-            pl: { xs: '0.25rem' },
-            pr: { xs: '0.25rem' },
-            minHeight: '75vh',
-          }}
+    <>
+      <Header address={account} enableExt={enableExt} disableExt={disableExt}/>
+      <Container
+        sx={{
+          mt: { xs: '0', sm: '4rem' },
+          mb: { xs: '7rem', sm: '0' },
+          pl: { xs: '0.25rem' },
+          pr: { xs: '0.25rem' },
+          minHeight: '75vh',
+        }}
+      >
+        <Grid
+          container
+          wrap="wrap"
+          alignItems="flex-start"
+          justifyContent="center"
         >
-          <Grid
-            container
-            wrap="wrap"
-            alignItems="flex-start"
-            justifyContent="center"
-          >
-            {!isPositionSelected ? (
-              <Grid item xs={6}>
-                <MigratePosition
-                  provider={provider}
-                  loading={loading}
-                  rows={rows}
-                  selected={selected}
-                  setSelected={setSelected}
-                  onNext={onNext}
-                  account={account}
-                />
-              </Grid>
-            ) : (
-              <>
-                {/*<Grid item xs={4}>*/}
-                {/*  <MigrateFrom*/}
-                {/*    onBack={onBack}*/}
-                {/*    position={selected!}*/}
-                {/*    onNext={onFromFormFilled}*/}
-                {/*    isFormFormFilled={isFormFormFilled}*/}
-                {/*  />*/}
-                {/*</Grid>*/}
-                {/*{isFormFormFilled && (*/}
-                {/*  <Grid item xs={4} ml={{ xs: 0, md: 3 }} mt={{ xs: 3, md: 0 }}>*/}
-                {/*    <MigrateTo*/}
-                {/*      onNext={() => console.log('implement me')}*/}
-                {/*      onBack={() => setIsFormFormFilled(false)}*/}
-                {/*    />*/}
-                {/*  </Grid>*/}
-                {/*)}*/}
-              </>
-            )}
-          </Grid>
-        </Container>
-      </div>
-    </div>
+          {!isPositionSelected ? (
+            <Grid item xs={6}>
+              <MigratePosition
+                provider={provider}
+                loading={loading}
+                rows={rows}
+                selected={selected}
+                setSelected={setSelected}
+                onNext={onNext}
+                account={account}
+              />
+            </Grid>
+          ) : (
+            <>
+              {/*<Grid item xs={4}>*/}
+              {/*  <MigrateFrom*/}
+              {/*    onBack={onBack}*/}
+              {/*    position={selected!}*/}
+              {/*    onNext={onFromFormFilled}*/}
+              {/*    isFormFormFilled={isFormFormFilled}*/}
+              {/*  />*/}
+              {/*</Grid>*/}
+              {/*{isFormFormFilled && (*/}
+              {/*  <Grid item xs={4} ml={{ xs: 0, md: 3 }} mt={{ xs: 3, md: 0 }}>*/}
+              {/*    <MigrateTo*/}
+              {/*      onNext={() => console.log('implement me')}*/}
+              {/*      onBack={() => setIsFormFormFilled(false)}*/}
+              {/*    />*/}
+              {/*  </Grid>*/}
+              {/*)}*/}
+            </>
+          )}
+        </Grid>
+      </Container>
+    </>
   );
 };
 

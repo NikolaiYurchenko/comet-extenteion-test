@@ -22,7 +22,7 @@ function APRChange({ type, start, end }: APRChangeProps) {
         {start}%
       </Typography>
       <img
-        src="/images/assets/images/shared/arrowRight.svg"
+        src="/images/arrowRight.svg"
         alt="Arrow Right"
         width={14}
         height={10}

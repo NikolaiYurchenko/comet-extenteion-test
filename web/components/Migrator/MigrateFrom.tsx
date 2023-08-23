@@ -54,7 +54,7 @@ function MigrateFrom({
         }}
       >
         <img
-          src="/images/assets/images/shared/arrowBack.svg"
+          src="/images/arrowBack.svg"
           height={14}
           width={16}
           alt="Arrow Back"
