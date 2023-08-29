@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import {
   Box,
   Button,
@@ -7,10 +8,9 @@ import {
   Stack,
   Typography,
 } from '@mui/material';
-import React, { useState } from 'react';
-
 import { AssetType } from '../../helpers/assets';
-import { NetworkIcon, ProviderIcon } from '../Shared/Icons';
+import ProviderIcon from '../Shared/Icons/ProviderIcon';
+import NetworkIcon from '../Shared/Icons/NetworkIcon';
 import APRChange from './APRChange';
 import AssetMigrationChange from './AssetMigrationChange';
 import InfoWithIcon from './InfoWithIcon';

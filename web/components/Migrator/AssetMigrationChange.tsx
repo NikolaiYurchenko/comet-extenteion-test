@@ -4,8 +4,8 @@ import React from 'react';
 
 import { AssetType } from '../../helpers/assets';
 import { formatAssetWithSymbol } from '../../helpers/values';
-import { CurrencyIcon } from '../Shared/Icons';
 import APRChange from './APRChange';
+import CurrencyIcon from '../Shared/Icons/CurrencyIcon';
 
 type AssetMigrationChangeProps = {
   type: AssetType;

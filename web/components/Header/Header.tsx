@@ -1,7 +1,7 @@
 import {AppBar, Box, Grid, Toolbar, useMediaQuery} from "@mui/material";
 import {useTheme} from "@mui/material/styles";
 import WalletAddress from "./WalletAddress";
-import {LogoTitle} from "../Shared/Icons/LogoTitle";
+import LogoTitle from "../Shared/Icons/LogoTitle";
 
 type HeaderProps = {
   enableExt: () => void;
@@ -38,16 +38,18 @@ function Header({ enableExt, disableExt, address = '' }: HeaderProps) {
             <Grid item>
               <a href="/">
                 <Box
-                  maxWidth={isMobile ? 120 : 180}
-                  maxHeight={50}
+                  width={isMobile ? 120 : 180}
+                  height={50}
                   sx={{
                     width: '12rem',
+                    display: 'flex',
+                    alignItems: 'center'
                   }}
                 >
                   <LogoTitle style={
                     isMobile
                       ? { width: '100%', height: 'auto' }
-                      : { marginLeft: '10px', height: '30px' }
+                      : { marginLeft: '10px', height: '30px', width: '100%' }
                   } />
                 </Box>
               </a>

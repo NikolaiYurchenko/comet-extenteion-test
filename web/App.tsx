@@ -3,17 +3,26 @@ import { RPC } from '@compound-finance/comet-extension';
 import { Fragment, useEffect, useMemo, useState } from 'react';
 import ERC20 from '../abis/ERC20';
 import Comet from '../abis/Comet';
-import { CTokenSym, Network, NetworkConfig, getNetwork, getNetworkById, getNetworkConfig, isNetwork, showNetwork } from './Network';
+import { 
+  CTokenSym, 
+  Network, 
+  NetworkConfig, 
+  getNetwork, 
+  getNetworkById, 
+  getNetworkConfig, 
+  isNetwork, 
+  showNetwork 
+} from './Network';
 import { JsonRpcProvider } from '@ethersproject/providers';
 import { Contract, ContractInterface } from '@ethersproject/contracts';
 import { Close } from './Icons/Close';
 import { CircleCheckmark } from './Icons/CircleCheckmark';
-import {Button, Container, Grid} from '@mui/material';
+import { Button, Container, Grid } from '@mui/material';
 import MigratePosition from "./components/Migrator/MigratePosition";
 import MigrateFrom from "./components/Migrator/MigrateFrom";
 import MigrateTo from "./components/Migrator/MigrateTo";
-import {getRows, PositionRow} from "./helpers/positions";
-import {Position} from "./models/Position";
+import { getRows, PositionRow } from "./helpers/positions";
+import { Position } from "./models/Position";
 import Header from "./components/Header/Header";
 
 interface AppProps {
@@ -85,7 +94,8 @@ export function App<N extends Network>({rpc, web3, account, networkConfig}: AppP
       if (loading) return;
       setRows(getRows(positions));
     })();
-  }, [loading, account, positions]);
+  // }, [loading, account, positions]);
+  }, []);
 
   const signer = useMemo(() => {
     return web3.getSigner().connectUnchecked();
@@ -139,22 +149,22 @@ export function App<N extends Network>({rpc, web3, account, networkConfig}: AppP
             </Grid>
           ) : (
             <>
-              {/*<Grid item xs={4}>*/}
-              {/*  <MigrateFrom*/}
-              {/*    onBack={onBack}*/}
-              {/*    position={selected!}*/}
-              {/*    onNext={onFromFormFilled}*/}
-              {/*    isFormFormFilled={isFormFormFilled}*/}
-              {/*  />*/}
-              {/*</Grid>*/}
-              {/*{isFormFormFilled && (*/}
-              {/*  <Grid item xs={4} ml={{ xs: 0, md: 3 }} mt={{ xs: 3, md: 0 }}>*/}
-              {/*    <MigrateTo*/}
-              {/*      onNext={() => console.log('implement me')}*/}
-              {/*      onBack={() => setIsFormFormFilled(false)}*/}
-              {/*    />*/}
-              {/*  </Grid>*/}
-              {/*)}*/}
+              <Grid item xs={4}>
+               <MigrateFrom
+               onBack={onBack}
+               position={selected!}
+               onNext={onFromFormFilled}
+               isFormFormFilled={isFormFormFilled}
+               />
+              </Grid>
+              {isFormFormFilled && (
+                <Grid item xs={4} ml={{ xs: 0, md: 3 }} mt={{ xs: 3, md: 0 }}>
+                  <MigrateTo
+                    onNext={() => console.log('implement me')}
+                    onBack={() => setIsFormFormFilled(false)}
+                  />
+                </Grid>
+              )}
             </>
           )}
         </Grid>
@@ -164,7 +174,7 @@ export function App<N extends Network>({rpc, web3, account, networkConfig}: AppP
 };
 
 export default ({rpc, web3}: AppProps) => {
-  let timer = usePoll(10000);
+  // let timer = usePoll(10000);
   const [account, setAccount] = useState<string | null>(null);
   const [networkConfig, setNetworkConfig] = useState<NetworkConfig<Network> | 'unsupported' | null>(null);
 
@@ -174,7 +184,8 @@ export default ({rpc, web3}: AppProps) => {
       let [account] = accounts;
       setAccount(account);
     }
-  }, [web3, timer]);
+  // }, [web3, timer]);
+  }, []);
 
   useAsyncEffect(async () => {
     let networkWeb3 = await web3.getNetwork();
@@ -184,7 +195,8 @@ export default ({rpc, web3}: AppProps) => {
     } else {
       setNetworkConfig('unsupported');
     }
-  }, [web3, timer]);
+  // }, [web3, timer]);
+  }, []);
 
   if (networkConfig && account) {
     if (networkConfig === 'unsupported') {

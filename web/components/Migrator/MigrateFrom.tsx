@@ -11,13 +11,13 @@ import React from 'react';
 
 import { ActionType, AssetType } from '../../helpers/assets';
 import { PositionRow } from '../../helpers/positions';
-import { useBorrow } from '../../store/borrow.store';
-import { NetworkIcon, ProviderIcon } from '../Shared/Icons';
-import CurrencyCard from '../Shared/Operation/FormAssetBox/CurrencyCard';
+// import CurrencyCard from '../Shared/Operation/FormAssetBox/CurrencyCard';
 import WarningInfo from '../Shared/WarningInfo';
 import InfoWithIcon from './InfoWithIcon';
 import PositionHealth from './PositionHealth';
 import {VaultType} from "@x-fuji/sdk";
+import ProviderIcon from '../Shared/Icons/ProviderIcon';
+import NetworkIcon from '../Shared/Icons/NetworkIcon';
 
 type MigrateFromProps = {
   onBack: () => void;
@@ -33,13 +33,13 @@ function MigrateFrom({
   isFormFormFilled,
 }: MigrateFromProps) {
   const { palette } = useTheme();
-  const changeAssetCurrency = useBorrow((state) => state.changeAssetCurrency);
-  const changeAssetValue = useBorrow((state) => state.changeAssetValue);
+  // const changeAssetCurrency = useBorrow((state) => state.changeAssetCurrency);
+  // const changeAssetValue = useBorrow((state) => state.changeAssetValue);
 
-  const collateral = useBorrow((state) => state.collateral);
-  const debt = useBorrow((state) => state.debt);
-  const isExecuting = useBorrow((state) => state.isExecuting);
-  const changeAssetChain = useBorrow((state) => state.changeAssetChain);
+  // const collateral = useBorrow((state) => state.collateral);
+  // const debt = useBorrow((state) => state.debt);
+  // const isExecuting = useBorrow((state) => state.isExecuting);
+  // const changeAssetChain = useBorrow((state) => state.changeAssetChain);
 
   return (
     <Stack direction="column" justifyContent="flex-start" textAlign="left">
@@ -82,7 +82,7 @@ function MigrateFrom({
             />
           </Stack>
 
-          {[collateral, debt].map((assetChange, index) => {
+          {/* {[collateral, debt].map((assetChange, index) => {
             const collateralIndex = 0;
             const type =
               index === collateralIndex ? AssetType.Collateral : AssetType.Debt;
@@ -120,7 +120,7 @@ function MigrateFrom({
                 />
               </>
             );
-          })}
+          })} */}
 
           <Box mt={3}>
             <WarningInfo
